@@ -3,6 +3,7 @@ class PlacementTile {
     this.position = position;
     this.size = 64;
     this.color = "rgba(255, 255, 255, 0.15)";
+    this.occupied = false;
   }
 
   draw() {
@@ -68,10 +69,11 @@ class Enemy {
 class Building {
   constructor({ position = { x: 0, y: 0 } }) {
     this.position = position;
+    this.width = 64 * 2;
   }
 
   draw() {
-    (c.fillStyle = "blue"),
-      c.fillRect(this.position.x, this.position.y, 64, 64);
+    c.fillStyle = "blue";
+    c.fillRect(this.position.x, this.position.y, this.width, 64);
   }
 }
