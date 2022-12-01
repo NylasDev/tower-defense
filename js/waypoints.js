@@ -1,9 +1,5 @@
 const waypoints = [
   {
-    x: 0,
-    y: 0,
-  },
-  {
     x: -98,
     y: 472,
   },

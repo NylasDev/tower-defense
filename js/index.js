@@ -9,8 +9,53 @@ canvas.height = 768;
 c.fillStyle = "white";
 c.fillRect(0, 0, canvas.width, canvas.height);
 
+//map draw
 const image = new Image();
-image.onload = () => {
-  c.drawImage(image, 0, 0);
-};
+image.onload = () => {};
 image.src = "img/gameMap.png";
+
+class Enemy {
+  constructor({ position = { x: 0, y: 0 } }) {
+    this.position = position;
+    this.width = 100;
+    this.height = 100;
+    this.waypointIndex = 0;
+  }
+  draw() {
+    c.fillStyle = "red";
+    c.fillRect(this.position.x, this.position.y, this.width, this.height);
+  }
+
+  update() {
+    this.draw();
+
+    //movement
+    const waypoint = waypoints[this.waypointIndex];
+    const xDistance = waypoint.x - this.position.x;
+    const yDistance = waypoint.y - this.position.y;
+    const angle = Math.atan2(yDistance, xDistance);
+    this.position.x += Math.cos(angle);
+    this.position.y += Math.sin(angle);
+
+    if (
+      Math.round(this.position.x) === Math.round(waypoint.x) &&
+      Math.round(this.position.y) === Math.round(waypoint.y) &&
+      this.waypointIndex < waypoints.length - 1
+    ) {
+      this.waypointIndex++;
+    }
+  }
+}
+
+const enemy = new Enemy({ position: { x: 200, y: 400 } });
+const enemy2 = new Enemy({ position: { x: 0, y: 400 } });
+
+function animate() {
+  requestAnimationFrame(animate);
+
+  c.drawImage(image, 0, 0);
+  enemy.update();
+  enemy2.update();
+}
+
+animate();
