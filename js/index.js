@@ -38,17 +38,22 @@ image.onload = () => {};
 image.src = "img/gameMap.png";
 
 const enemies = [];
-for (let i = 1; i < 10; i++) {
-  const xOffset = i * 150;
-  enemies.push(
-    new Enemy({
-      position: { x: waypoints[0].x - xOffset, y: waypoints[0].y },
-    })
-  );
+
+function spawnEnemies(spawnCount) {
+  for (let i = 1; i < spawnCount + 1; i++) {
+    const xOffset = i * 150;
+    enemies.push(
+      new Enemy({
+        position: { x: waypoints[0].x - xOffset, y: waypoints[0].y },
+      })
+    );
+  }
 }
 
 const buildings = [];
 let activeTile = undefined;
+let enemyCount = 3;
+spawnEnemies(3);
 
 function animate() {
   requestAnimationFrame(animate);
@@ -86,6 +91,7 @@ function animate() {
 
       //projectile hits
       if (distance < projectile.enemy.radius + projectile.radius) {
+        //enemy health and removal
         projectile.enemy.health -= 20;
         if (projectile.enemy.health <= 0) {
           const enemyIndex = enemies.findIndex((enemy) => {
@@ -94,6 +100,12 @@ function animate() {
           if (enemyIndex > -1) {
             enemies.splice(enemyIndex, 1);
           }
+        }
+
+        //tracking total ammount of enemies
+        if (enemies.length === 0) {
+          enemyCount += 2;
+          spawnEnemies(enemyCount);
         }
         console.log(projectile.enemy.health);
         building.projectiles.splice(i, 1);
