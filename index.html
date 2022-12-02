@@ -6,22 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>X-mas 2022 Tower Defense</title>
   </head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  /><link
+    href="https://fonts.googleapis.com/css2?family=Changa+One&display=swap"
+    rel="stylesheet"
+  />
   <style>
     body {
       background-color: black;
     }
     .container {
       position: relative;
+      display: inline-block;
     }
     .game-over {
       position: absolute;
       top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 72px;
+      font-family: "Changa One", cursive;
+      -webkit-text-stroke: 3px black;
     }
   </style>
   <body>
     <div class="container">
       <canvas></canvas>
-      <div class="game-over">Game Over</div>
+      <div id="gameOver" class="game-over">GAME OVER</div>
     </div>
     <script src="js/buildTiles.js"></script>
     <script src="js/waypoints.js"></script>
