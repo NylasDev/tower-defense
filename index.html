@@ -10,9 +10,19 @@
     body {
       background-color: black;
     }
+    .container {
+      position: relative;
+    }
+    .game-over {
+      position: absolute;
+      top: 0;
+    }
   </style>
   <body>
-    <canvas></canvas>
+    <div class="container">
+      <canvas></canvas>
+      <div class="game-over">Game Over</div>
+    </div>
     <script src="js/buildTiles.js"></script>
     <script src="js/waypoints.js"></script>
     <script src="js/classes.js"></script>
