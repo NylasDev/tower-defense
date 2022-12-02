@@ -63,7 +63,7 @@ function animate() {
   });
 
   buildings.forEach((building) => {
-    building.draw();
+    building.update();
     building.target = null;
     const validEnemies = enemies.filter((enemy) => {
       const xDiffrence = enemy.center.x - building.center.x;
