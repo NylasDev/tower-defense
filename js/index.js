@@ -16,7 +16,6 @@ for (let i = 0; i < buildTiles.length; i += 20) {
 
 const placementTiles = [];
 
-// console.log(buildTiles2D);
 buildTiles2D.forEach((row, y) => {
   row.forEach((symbol, x) => {
     if (symbol === 14) {
@@ -32,7 +31,6 @@ buildTiles2D.forEach((row, y) => {
     }
   });
 });
-console.log(placementTiles);
 
 //map draw
 const image = new Image();
@@ -66,6 +64,28 @@ function animate() {
 
   buildings.forEach((building) => {
     building.draw();
+    building.target = null;
+    const validEnemies = enemies.filter((enemy) => {
+      const xDiffrence = enemy.center.x - building.center.x;
+      const yDiffrence = enemy.center.y - building.center.y;
+      const distance = Math.hypot(xDiffrence, yDiffrence);
+
+      return distance < enemy.radius + building.radius;
+    });
+    building.target = validEnemies[0];
+
+    for (let i = building.projectiles.length - 1; i >= 0; i--) {
+      const projectile = building.projectiles[i];
+      projectile.update();
+
+      const xDiffrence = projectile.enemy.center.x - projectile.position.x;
+      const yDiffrence = projectile.enemy.center.y - projectile.position.y;
+      const distance = Math.hypot(xDiffrence, yDiffrence);
+      if (distance < projectile.enemy.radius + projectile.radius) {
+        building.projectiles.splice(i, 1);
+      }
+      // console.log(xDiffrence);
+    }
   });
 }
 
@@ -86,7 +106,6 @@ canvas.addEventListener("click", (e) => {
     );
     activeTile.isOccupied = true;
   }
-  console.log(buildings);
 });
 
 window.addEventListener("mousemove", (e) => {
@@ -106,6 +125,5 @@ window.addEventListener("mousemove", (e) => {
       break;
     }
   }
-  console.log(activeTile);
 });
 animate();
