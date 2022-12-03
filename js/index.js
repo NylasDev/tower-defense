@@ -150,6 +150,9 @@ canvas.addEventListener("click", (e) => {
       })
     );
     activeTile.isOccupied = true;
+    buildings.sort((a, b) => {
+      return a.position.y - b.position.y;
+    });
   }
 });
 

@@ -34,7 +34,7 @@ class Enemy extends Sprite {
 
   update() {
     this.draw();
-
+    super.update();
     //movement
     const waypoint = waypoints[this.waypointIndex];
     const xDistance = waypoint.x - this.center.x;

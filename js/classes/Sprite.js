@@ -38,7 +38,8 @@ class Sprite {
       crop.width,
       crop.height
     );
-
+  }
+  update() {
     //responsible for animation slow down
     this.frames.elapsed++;
     if (this.frames.elapsed % this.frames.hold === 0) {
