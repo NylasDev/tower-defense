@@ -1,6 +1,6 @@
 class Enemy extends Sprite {
   constructor({ position = { x: 0, y: 0 } }) {
-    super({ position, imageSrc: "img/orc.png", frames: { max: 7 } });
+    super({ position, imageSrc: "./img/orc.png", frames: { max: 7 } });
     this.position = position;
     this.width = 100;
     this.height = 100;
