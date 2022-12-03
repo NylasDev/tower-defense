@@ -38,7 +38,7 @@ image.onload = () => {};
 image.src = "img/gameMap.png";
 
 const enemies = [];
-
+const explosions = [];
 function spawnEnemies(spawnCount) {
   for (let i = 1; i < spawnCount + 1; i++) {
     const xOffset = i * 150;
@@ -78,7 +78,15 @@ function animate() {
       }
     }
   }
+  for (let i = explosions.length - 1; i >= 0; i--) {
+    const explosion = explosions[i];
+    explosion.draw();
+    explosion.update();
 
+    if (explosion.frames.current >= explosion.frames.max - 1) {
+      explosions.splice(i, 1);
+    }
+  }
   //tracking total ammount of enemies
   if (enemies.length === 0) {
     enemyCount += 2;
@@ -124,10 +132,17 @@ function animate() {
           }
         }
 
-        console.log(projectile.enemy.health);
+        //boom boom
+        explosions.push(
+          new Sprite({
+            position: { x: projectile.position.x, y: projectile.position.y },
+            imageSrc: "./img/explosion.png",
+            frames: { max: 4 },
+            offset: { x: 0, y: 0 },
+          })
+        );
         building.projectiles.splice(i, 1);
       }
-      // console.log(xDiffrence);
     }
   });
 }
