@@ -1,5 +1,6 @@
-class Enemy {
+class Enemy extends Sprite {
   constructor({ position = { x: 0, y: 0 } }) {
+    super({ position, imageSrc: "img/orc.png", frames: { max: 7 } });
     this.position = position;
     this.width = 100;
     this.height = 100;
@@ -16,11 +17,7 @@ class Enemy {
     };
   }
   draw() {
-    c.fillStyle = "red";
-    //c.fillRect(this.position.x, this.position.y, this.width, this.height);
-    c.beginPath();
-    c.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2);
-    c.fill();
+    super.draw();
 
     //health bar
     c.fillStyle = "red";
@@ -44,7 +41,7 @@ class Enemy {
     const yDistance = waypoint.y - this.center.y;
     const angle = Math.atan2(yDistance, xDistance);
 
-    const speed = 2;
+    const speed = 1;
     this.velocity.x = Math.cos(angle) * speed;
     this.velocity.y = Math.sin(angle) * speed;
 
