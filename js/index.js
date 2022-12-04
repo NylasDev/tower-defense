@@ -39,12 +39,20 @@ image.src = "img/gameMap.png";
 
 const enemies = [];
 const explosions = [];
+
+function randomIntFromInterval(min, max) {
+  // min and max included
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
 function spawnEnemies(spawnCount) {
   for (let i = 1; i < spawnCount + 1; i++) {
+    const rndInt = randomIntFromInterval(1, 10);
     const xOffset = i * 150;
     enemies.push(
       new Enemy({
         position: { x: waypoints[0].x - xOffset, y: waypoints[0].y },
+        imageSrc: `img/u${rndInt}.png`,
       })
     );
   }
